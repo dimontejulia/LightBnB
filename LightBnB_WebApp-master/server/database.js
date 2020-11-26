@@ -124,7 +124,6 @@ const getAllProperties = function (options, limit = 10) {
   FROM properties
   JOIN property_reviews ON properties.id = property_id
   `;
-  console.log(options);
 
   // city search
   if (options.city) {
@@ -136,10 +135,8 @@ const getAllProperties = function (options, limit = 10) {
   if (options.owner_id) {
     queryParams.push(`${options.owner_id}`);
     if (queryParams.length === 1) {
-      console.log("in the if");
       queryString += `WHERE owner_id = $${queryParams.length} `;
     } else {
-      console.log("in the else");
       queryString += `AND owner_id =$${queryParams.length} `;
     }
   }
@@ -180,9 +177,6 @@ const getAllProperties = function (options, limit = 10) {
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
   `;
-
-  // 5
-  console.log(queryString, queryParams);
 
   return pool
     .query(queryString, queryParams)
